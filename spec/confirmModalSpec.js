@@ -1,4 +1,6 @@
 describe("confirmModal", function () {
+  var $fixture;
+  var fixture;
   var $trigger;
   var $modal;
   var $confirm;
@@ -6,32 +8,34 @@ describe("confirmModal", function () {
   var $backdrop;
 
   beforeEach(function () {
-    $("#jasmine-content").html(
-      "<span data-trigger='really'></span>" +
-        "<div data-modal='really' style='display: none;'>" +
-        "<span data-confirm='really'></span>" +
-        "<span data-cancel='really'></span>" +
+    fixture = "#jasmine-content";
+    $fixture = $(fixture);
+    $fixture.html(
+      "<span data-trigger='identifier'></span>" +
+        "<div data-modal='identifier' style='display: none;'>" +
+        "  <span data-confirm='identifier'></span>" +
+        "  <span data-cancel='identifier'></span>" +
         "</div>"
     );
 
-    $trigger = $('[data-trigger=really]');
-    $modal = $('[data-modal=really]');
-    $confirm = $('[data-confirm=really]');
-    $cancel = $('[data-cancel=really]');
+    $trigger = $fixture.find('[data-trigger=identifier]');
+    $modal = $fixture.find('[data-modal=identifier]');
+    $confirm = $fixture.find('[data-confirm=identifier]');
+    $cancel = $fixture.find('[data-cancel=identifier]');
   });
 
   describe("initialize", function () {
     it("adds a modal-background to the page", function () {
-      new ConfirmModal('#jasmine-content', 'really');
-      $backdrop = $('.modal-backdrop');
+      new ConfirmModal(fixture, 'identifier');
+      $backdrop = $fixture.find('.modal-backdrop');
 
       expect($backdrop.length).toEqual(1);
     });
 
     it("does not add a modal-background if one is already there", function () {
-      $('#jasmine-content').append("<div class='modal-backdrop'></div>");
-      new ConfirmModal('#jasmine-content', 'really');
-      $backdrop = $('.modal-backdrop');
+      $fixture.append("<div class='modal-backdrop'></div>");
+      new ConfirmModal(fixture, 'identifier');
+      $backdrop = $fixture.find('.modal-backdrop');
 
       expect($backdrop.length).toEqual(1);
     });
@@ -39,8 +43,8 @@ describe("confirmModal", function () {
 
   describe("opening and closing the modal", function () {
     beforeEach(function () {
-      new ConfirmModal('#jasmine-content', 'really');
-      $backdrop = $('.modal-backdrop');
+      new ConfirmModal(fixture, 'identifier');
+      $backdrop = $fixture.find('.modal-backdrop');
       $backdrop.hide();
     });
 
@@ -86,8 +90,9 @@ describe("confirmModal", function () {
     beforeEach(function () {
       confirm = jasmine.createSpy('confirm');
       cancel = jasmine.createSpy('cancel');
-      new ConfirmModal('#jasmine-content', 'really', {confirm: confirm, cancel: cancel});
-      $backdrop = $('.modal-backdrop');
+
+      new ConfirmModal(fixture, 'identifier', {confirm: confirm, cancel: cancel});
+      $backdrop = $fixture.find('.modal-backdrop');
       $backdrop.hide();
     });
 

@@ -9,15 +9,16 @@
 
 <body>
 
-<span data-trigger="really">Launch Modal</span>
+<span data-trigger="quit">Launch Modal</span>
 
-<div class="confirm-modal" data-modal="really">
-  <button data-confirm="really">Yes</button>
-  <button data-cancel="really">No</button>
+<div class="confirm-modal" data-modal="quit">
+  <p>Quit?</p>
+  <button data-confirm="quit">Yes</button>
+  <button data-cancel="quit">No</button>
 </div>
 
 <script>
-  new ConfirmModal('body', 'really', {
+  new ConfirmModal('body', 'quit', {
     confirm: function () {
       $('body').append("<p>confirmed!</p>");
     },

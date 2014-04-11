@@ -1,35 +1,33 @@
 ConfirmModal = function (page, identifier, options) {
-  options = options || {};
-  var $page = $(page);
-  var modal = '[data-modal="' + identifier + '"]';
-  var trigger = '[data-trigger="' + identifier + '"]';
-  var confirm = '[data-confirm="' + identifier + '"]';
-  var cancel = '[data-cancel="' + identifier + '"]';
-  var backdrop = '.modal-backdrop';
+  var confirm, cancel, $page, $backdrop, $modal, $trigger, $confirm, $cancel;
 
-  if ($page.find('.modal-backdrop').length == 0) {
-    $page.append("<div class='modal-backdrop'></div>");
+  options = options || {};
+  confirm = options['confirm'] || $.noop;
+  cancel = options['cancel'] || $.noop;
+
+  $page = $(page);
+  $backdrop = $page.find('.modal-backdrop');
+  $modal = $page.find('[data-modal="' + identifier + '"]');
+
+  $trigger = $page.find('[data-trigger="' + identifier + '"]');
+  $confirm = $page.find('[data-confirm="' + identifier + '"]');
+  $cancel = $page.find('[data-cancel="' + identifier + '"]');
+
+  if ($backdrop.length == 0) {
+    $backdrop = $("<div class='modal-backdrop'></div>").appendTo(page);
   }
 
-  $page.find(trigger).click(function () {
-    $page.find(modal).show();
-    $page.find(backdrop).show();
-  });
+  function showModal() {
+    $modal.add($backdrop).show();
+  }
 
-  $page.find([cancel, backdrop].join(",")).click(function () {
-    if (options['cancel']) {
-      options['cancel']();
-    }
-    $page.find(modal).hide();
-    $page.find(backdrop).hide();
-  });
+  function hideModal(e) {
+    var callback = e.data || $.noop;
+    callback();
+    $modal.add($backdrop).hide();
+  }
 
-  $page.find(confirm).click(function () {
-    if (options['confirm']) {
-      options['confirm']();
-    }
-    $page.find(modal).hide();
-    $page.find(backdrop).hide();
-  });
-
+  $trigger.click(showModal);
+  $confirm.click(confirm, hideModal);
+  $cancel.add($backdrop).click(cancel, hideModal);
 };
