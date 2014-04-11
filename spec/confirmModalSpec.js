@@ -24,7 +24,7 @@ describe("confirmModal", function () {
 
   describe("opening and closing the modal", function () {
     beforeEach(function () {
-      new ConfirmModal('really', function () {});
+      new ConfirmModal('really');
     });
 
     it("shows the modal and backdrop when the trigger is clicked", function () {
@@ -64,29 +64,35 @@ describe("confirmModal", function () {
   });
 
   describe("callbacks", function () {
-    var success;
+    var confirm;
+    var cancel;
+
     beforeEach(function () {
-      success = jasmine.createSpy('success');
-      new ConfirmModal('really', success);
+      confirm = jasmine.createSpy('confirm');
+      cancel = jasmine.createSpy('cancel');
+      new ConfirmModal('really', {confirm: confirm, cancel: cancel});
     });
 
-    it("calls the success callback on confirm", function () {
+    it("calls the confirm callback on confirm", function () {
       $trigger.click();
       $confirm.click();
 
-      expect(success).toHaveBeenCalled();
+      expect(confirm).toHaveBeenCalled();
+      expect(cancel).not.toHaveBeenCalled();
     });
 
-    it("does not call the success callback on cancel", function () {
+    it("does not call the confirm callback on cancel", function () {
       $trigger.click();
       $cancel.click();
 
-      expect(success).not.toHaveBeenCalled();
+      expect(confirm).not.toHaveBeenCalled();
+      expect(cancel).toHaveBeenCalled();
 
       $trigger.click();
       $backdrop.click();
 
-      expect(success).not.toHaveBeenCalled();
+      expect(confirm).not.toHaveBeenCalled();
+      expect(cancel).toHaveBeenCalled();
     });
   });
 

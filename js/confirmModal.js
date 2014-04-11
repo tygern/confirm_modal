@@ -1,4 +1,5 @@
-ConfirmModal = function (identifier, success) {
+ConfirmModal = function (identifier, options) {
+  options = options || {};
   var modal = '[data-modal="' + identifier + '"]';
   var trigger = '[data-trigger="' + identifier + '"]';
   var confirm = '[data-confirm="' + identifier + '"]';
@@ -11,12 +12,17 @@ ConfirmModal = function (identifier, success) {
   });
 
   $([cancel, backdrop].join(",")).click(function () {
+    if (options['cancel']) {
+      options['cancel']();
+    }
     $(modal).hide();
     $(backdrop).hide();
   });
 
   $(confirm).click(function () {
-    success();
+    if (options['confirm']) {
+      options['confirm']();
+    }
     $(modal).hide();
     $(backdrop).hide();
   });

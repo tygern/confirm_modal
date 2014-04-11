@@ -23,10 +23,14 @@
 <div class="modal-backdrop"></div>
 
 <script>
-  new ConfirmModal('really',
-    function () {
+  new ConfirmModal('really', {
+    confirm: function () {
       $('body').append("<p>confirmed!</p>");
-    });
+    },
+    cancel: function () {
+      $('body').append("<p>cancelled!</p>");
+    }
+  });
 </script>
 </body>
 </html>
