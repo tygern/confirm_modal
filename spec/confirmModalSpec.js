@@ -13,9 +13,8 @@ describe("confirmModal", function () {
         "<span data-cancel='really'></span>" +
         "</div>" +
         "<div class='modal-backdrop' style='display: none;'></div>"
-    )
+    );
 
-    new ConfirmModal('really');
     $trigger = $('[data-trigger=really]');
     $modal = $('[data-modal=really]');
     $confirm = $('[data-confirm=really]');
@@ -23,7 +22,11 @@ describe("confirmModal", function () {
     $backdrop = $('.modal-backdrop');
   });
 
-  describe("opening an closing the modal", function () {
+  describe("opening and closing the modal", function () {
+    beforeEach(function () {
+      new ConfirmModal('really', function () {});
+    });
+
     it("shows the modal and backdrop when the trigger is clicked", function () {
       $trigger.click();
 
@@ -57,6 +60,33 @@ describe("confirmModal", function () {
       $modal.click();
 
       expect($modal).toBeVisible();
+    });
+  });
+
+  describe("callbacks", function () {
+    var success;
+    beforeEach(function () {
+      success = jasmine.createSpy('success');
+      new ConfirmModal('really', success);
+    });
+
+    it("calls the success callback on confirm", function () {
+      $trigger.click();
+      $confirm.click();
+
+      expect(success).toHaveBeenCalled();
+    });
+
+    it("does not call the success callback on cancel", function () {
+      $trigger.click();
+      $cancel.click();
+
+      expect(success).not.toHaveBeenCalled();
+
+      $trigger.click();
+      $backdrop.click();
+
+      expect(success).not.toHaveBeenCalled();
     });
   });
 

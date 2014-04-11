@@ -22,6 +22,11 @@
 
 <div class="modal-backdrop"></div>
 
-<script>new ConfirmModal('really');</script>
+<script>
+  new ConfirmModal('really',
+    function () {
+      $('body').append("<p>confirmed!</p>");
+    });
+</script>
 </body>
 </html>
