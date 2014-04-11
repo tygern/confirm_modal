@@ -1,6 +1,7 @@
-.confirm-modal {
-  padding: 25px;
-  text-align: center;
-
+.modal-content {
   border-radius: 8px;
+}
+
+.modal-header {
+
 }

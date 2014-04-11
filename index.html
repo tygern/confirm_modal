@@ -3,7 +3,7 @@
 <head>
   <title>Confirm Modal</title>
   <link href="css/confirm_modal.css" rel="stylesheet" type="text/css">
-  <!--<link href="css/demo.css" rel="stylesheet" type="text/css">-->
+  <link href="css/demo.css" rel="stylesheet" type="text/css">
   <script src="js/vendor/jquery-1.11.0.js"></script>
   <script src="js/confirmModal.js" type="text/javascript"></script>
 </head>
@@ -13,9 +13,16 @@
 <span data-trigger="quit">Launch Modal</span>
 
 <div class="confirm-modal" data-modal="quit">
-  <p>Quit?</p>
-  <button data-confirm="quit">Yes</button>
-  <button data-cancel="quit">No</button>
+  <div class="modal-content">
+    <div class="modal-header"></div>
+    <div class="modal-body">
+      <p>Quit?</p>
+
+    </div>
+    <div class="modal-footer"></div>
+    <button data-confirm="quit">Yes</button>
+    <button data-cancel="quit">No</button>
+  </div>
 </div>
 
 <script>
