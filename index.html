@@ -12,18 +12,12 @@
 <span data-trigger="really">Launch Modal</span>
 
 <div class="confirm-modal" data-modal="really">
-  <div class="modal-header">Title</div>
-  <div class="modal-body">Are you sure</div>
-  <div class="modal-footer">
-    <button data-confirm="really">Yes</button>
-    <button data-cancel="really">No</button>
-  </div>
+  <button data-confirm="really">Yes</button>
+  <button data-cancel="really">No</button>
 </div>
 
-<div class="modal-backdrop"></div>
-
 <script>
-  new ConfirmModal('really', {
+  new ConfirmModal('body', 'really', {
     confirm: function () {
       $('body').append("<p>confirmed!</p>");
     },

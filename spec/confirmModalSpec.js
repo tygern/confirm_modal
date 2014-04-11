@@ -11,20 +11,37 @@ describe("confirmModal", function () {
         "<div data-modal='really' style='display: none;'>" +
         "<span data-confirm='really'></span>" +
         "<span data-cancel='really'></span>" +
-        "</div>" +
-        "<div class='modal-backdrop' style='display: none;'></div>"
+        "</div>"
     );
 
     $trigger = $('[data-trigger=really]');
     $modal = $('[data-modal=really]');
     $confirm = $('[data-confirm=really]');
     $cancel = $('[data-cancel=really]');
-    $backdrop = $('.modal-backdrop');
+  });
+
+  describe("initialize", function () {
+    it("adds a modal-background to the page", function () {
+      new ConfirmModal('#jasmine-content', 'really');
+      $backdrop = $('.modal-backdrop');
+
+      expect($backdrop.length).toEqual(1);
+    });
+
+    it("does not add a modal-background if one is already there", function () {
+      $('#jasmine-content').append("<div class='modal-backdrop'></div>");
+      new ConfirmModal('#jasmine-content', 'really');
+      $backdrop = $('.modal-backdrop');
+
+      expect($backdrop.length).toEqual(1);
+    });
   });
 
   describe("opening and closing the modal", function () {
     beforeEach(function () {
-      new ConfirmModal('really');
+      new ConfirmModal('#jasmine-content', 'really');
+      $backdrop = $('.modal-backdrop');
+      $backdrop.hide();
     });
 
     it("shows the modal and backdrop when the trigger is clicked", function () {
@@ -35,7 +52,6 @@ describe("confirmModal", function () {
     });
 
     it("closes the modal and backdrop when the backdrop, confirm or cancel is clicked", function () {
-
       $trigger.click();
       $confirm.click();
 
@@ -70,7 +86,9 @@ describe("confirmModal", function () {
     beforeEach(function () {
       confirm = jasmine.createSpy('confirm');
       cancel = jasmine.createSpy('cancel');
-      new ConfirmModal('really', {confirm: confirm, cancel: cancel});
+      new ConfirmModal('#jasmine-content', 'really', {confirm: confirm, cancel: cancel});
+      $backdrop = $('.modal-backdrop');
+      $backdrop.hide();
     });
 
     it("calls the confirm callback on confirm", function () {
@@ -95,5 +113,4 @@ describe("confirmModal", function () {
       expect(cancel).toHaveBeenCalled();
     });
   });
-
 });
