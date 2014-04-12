@@ -10,18 +10,21 @@
 
 <body>
 
-<span data-trigger="quit">Launch Modal</span>
+<button data-trigger="quit">Launch Modal</button>
 
 <div class="confirm-modal" data-modal="quit">
   <div class="modal-content">
-    <div class="modal-header"></div>
-    <div class="modal-body">
-      <p>Quit?</p>
-
+    <div class="modal-header">
+      <span class="title">Confirm</span>
+      <span class="cancel" data-cancel="quit">X</span>
     </div>
-    <div class="modal-footer"></div>
-    <button data-confirm="quit">Yes</button>
-    <button data-cancel="quit">No</button>
+    <div class="modal-body">
+      <span>Are you sure you want to quit?</span>
+    </div>
+    <div class="modal-footer">
+      <button data-cancel="quit">No</button>
+      <button data-confirm="quit">Yes</button>
+    </div>
   </div>
 </div>
 

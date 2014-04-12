@@ -1,7 +1,15 @@
 .modal-content {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 
   z-index: 999;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .confirm-modal {
